@@ -6,14 +6,14 @@ const MOVE_VELOCITY_MAX = 200.0
 const DASH_VELOCITY = 500.0
 const DECELERATION = 1000.0
 
-var direction: Vector2 = Vector2(1, 0)
+var direction:Vector2 = Vector2(1, 0)
 
-var can_move: bool = true
+var can_move:bool = true
 
-@onready var camera: Camera2D = get_node("Camera")
-@onready var dash_timer: Timer = get_node("DashTimer")
+@onready var camera:Camera2D = get_node("Camera")
+@onready var dash_timer:Timer = get_node("DashTimer")
 
-@export var camera_enabled: bool
+@export var camera_enabled:bool
 
 
 func _ready():
@@ -37,7 +37,6 @@ func _physics_process(delta):
 
 	#print(velocity)
 	move_and_slide()
-	print(Engine.get_frames_per_second())
 
 
 func _enable_move():

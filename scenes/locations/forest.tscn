@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bria8fk3o811"]
+
+[ext_resource type="PackedScene" uid="uid://bqyaieqoe7uhh" path="res://scenes/player_start_position.tscn" id="1_xauuj"]
+
+[node name="Forest" type="Node2D"]
+
+[node name="PlayerStartPosition" parent="." instance=ExtResource("1_xauuj")]
