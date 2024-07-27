@@ -24,34 +24,54 @@ func _ready():
 		"forest": forest,
 	}
 
-	print(house)
-	print(location_dictionary)
-	_go_to_location("house")
+	_load_location("house")
+
+	_set_player_position()
+	_set_player_permissions()
 
 	ui_control.add_child(map)
-	_on_map_hide()
+	_hide_map()
 
-	house.exit_house_area_entered.connect(_on_map_show)
+	house.exit_house_area_entered.connect(_show_map)
 	map.location_button_pressed.connect(_go_to_location)
 
 
-func _on_map_show():
+func _show_map():
 	map.visible = true
 	player.can_move = false
 
-func _on_map_hide():
+func _hide_map():
 	map.visible = false
 	player.can_move = true
 
 
 func _go_to_location(location:String):
 	if location in location_dictionary:
-		if loaded_location != null:
-			loaded_location.remove_child(player)
-			remove_child(loaded_location)
-		loaded_location = location_dictionary[location]
-		add_child(loaded_location)
-		loaded_location.add_child(player)
-		player.global_position = loaded_location.get_node("PlayerStartPosition").global_position
+		_unload_location()
+		_load_location(location)
 
-		_on_map_hide()
+		_set_player_position()
+		_set_player_permissions()
+
+		_hide_map()
+
+
+func _unload_location():
+	loaded_location.remove_child(player)
+	remove_child(loaded_location)
+
+func _load_location(location:String):
+	loaded_location = location_dictionary[location]
+	loaded_location.add_child(player)
+	add_child(loaded_location)
+
+func _set_player_position():
+	player.global_position = loaded_location.get_node("PlayerStartPosition").global_position
+
+func _set_player_permissions():
+	if loaded_location == location_dictionary["house"]:
+		player.can_attack = false
+		player.enable_camera(false)
+	else:
+		player.can_attack = true
+		player.enable_camera(true)

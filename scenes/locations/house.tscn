@@ -16,6 +16,7 @@ script = ExtResource("1_4kxeh")
 
 [node name="Exit" type="Area2D" parent="."]
 position = Vector2(320, 400)
+collision_layer = 0
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Exit"]
@@ -26,6 +27,7 @@ shape = SubResource("RectangleShape2D_xujhs")
 
 [node name="Cauldron" type="Area2D" parent="."]
 position = Vector2(320, 200)
+collision_layer = 0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cauldron"]
