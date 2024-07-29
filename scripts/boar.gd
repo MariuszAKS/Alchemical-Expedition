@@ -4,20 +4,24 @@ extends CharacterBody2D
 enum State {WANDER, PREPARE_CHARGE, CHARGE, FINISH_CHARGE, STUNNED}
 
 const WALK_VELOCITY = 50.0
-const CHARGE_VELOCITY = 300.0
+const CHARGE_VELOCITY = 400.0
+
+var boar_state:State = State.WANDER
+var target:Node2D = null
+var direction:Vector2 = Vector2(0, 0)
 
 @onready var wander_timer:Timer = get_node("WanderTimer")
 @onready var prepare_charge_timer:Timer = get_node("PrepareChargeTimer")
 @onready var max_charge_timer:Timer = get_node("MaxChargeTimer")
 @onready var charge_cooldown_timer:Timer = get_node("ChargeCooldownTimer")
 @onready var memory_timer:Timer = get_node("MemoryTimer")
-var direction:Vector2 = Vector2(1, 0)
 
-var boar_state:State = State.WANDER
-var state_changed:bool = false
+@onready var reaction_symbol:Sprite2D = get_node("Reaction")
+@onready var reaction_symbol_timer:Timer = get_node("ReactionSymbolTimer")
 
-var target:Node2D = null
-var charging:bool = false
+var reaction_dots:CompressedTexture2D = preload("res://art/icons/dots.png")
+var reaction_exclamation:CompressedTexture2D = preload("res://art/icons/exclamation_mark.png")
+var reaction_question:CompressedTexture2D = preload("res://art/icons/question_mark.png")
 
 
 func _process(delta):
@@ -30,13 +34,13 @@ func _process(delta):
 		var collision = move_and_collide(velocity * delta)
 
 		if collision:
-			_finish_charge()
+			_hit_obstacle()
 	
-	else:
-		direction = (target.position - position).normalized()
-
+	print(charge_cooldown_timer.time_left)
+		
 
 func _change_state(new_state:State):
+	print("%s -> %s" % [State.find_key(boar_state), State.find_key(new_state)])
 	_exit_state(boar_state)
 	_enter_state(new_state)
 
@@ -72,6 +76,8 @@ func _enter_state(new_state:State):
 		# start animation for preparing charge (kopytkiem kop)
 	
 	elif new_state == State.CHARGE:
+		direction = (target.position - position).normalized()
+
 		max_charge_timer.wait_time = 1.0 + randf()
 		max_charge_timer.start()
 		# start animation for charging
@@ -96,18 +102,20 @@ func _change_wandering_direction():
 
 
 func _spot_target(body:Node2D):
+	_show_reaction_symbol(reaction_exclamation)
+	memory_timer.stop()
 	target = body
-	# start animation for spotting (opened eye)
 
-	_change_state(State.PREPARE_CHARGE)
+	if boar_state == State.WANDER:
+		_change_state(State.PREPARE_CHARGE)
 
 func _stop_seeing_target(_body:Node2D):
+	_show_reaction_symbol(reaction_dots)
 	memory_timer.start()
-	# start animation for spotting (closed eye)
 
 func _forget_target():
+	_show_reaction_symbol(reaction_question)
 	target = null
-	# start animation for forgetting (question mark)
 
 	_change_state(State.WANDER)
 
@@ -123,3 +131,11 @@ func _finish_cooldown():
 
 func _hit_obstacle():
 	_change_state(State.STUNNED)
+
+
+func _show_reaction_symbol(reaction:CompressedTexture2D):
+	reaction_symbol.texture = reaction
+	reaction_symbol_timer.start()
+
+func _hide_reaction_symbol():
+	reaction_symbol.texture = null

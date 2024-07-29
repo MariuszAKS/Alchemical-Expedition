@@ -40,10 +40,10 @@ func _ready():
 		var shift_min:float = -50
 		var shift_max:float = 50
 
-		for herd in range(8):
+		for herd in range(1):
 			pos_origin = Vector2(randf_range(range_min, range_max), randf_range(range_min, range_max))
 
-			for member in range(4):
+			for member in range(1):
 				boar = boar_scene.instantiate()
 				boars.append(boar)
 				boars_container.add_child(boar)
