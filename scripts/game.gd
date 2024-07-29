@@ -8,7 +8,7 @@ var forestScene:PackedScene = preload("res://scenes/locations/forest.tscn")
 
 @onready var ui_control:Control = get_node("UI Control")
 
-@onready var player:CharacterBody2D = playerScene.instantiate()
+@onready var player:Player = playerScene.instantiate()
 
 @onready var map:Control = mapScene.instantiate()
 @onready var house:Node2D = houseScene.instantiate()
@@ -38,11 +38,11 @@ func _ready():
 
 func _show_map():
 	map.visible = true
-	player.can_move = false
+	player.enable_move(false)
 
 func _hide_map():
 	map.visible = false
-	player.can_move = true
+	player.enable_move(true)
 
 
 func _go_to_location(location:String):
@@ -70,8 +70,8 @@ func _set_player_position():
 
 func _set_player_permissions():
 	if loaded_location == location_dictionary["house"]:
-		player.can_attack = false
+		player.enable_attack(false)
 		player.enable_camera(false)
 	else:
-		player.can_attack = true
+		player.enable_attack(true)
 		player.enable_camera(true)

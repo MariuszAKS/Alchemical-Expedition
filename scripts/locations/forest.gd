@@ -2,7 +2,7 @@ extends Node2D
 
 
 var tree_scene:PackedScene = preload("res://scenes/tree.tscn")
-var boar_scene:PackedScene = preload("res://scenes/boar.tscn")
+var boar_scene:PackedScene = preload("res://scenes/enemies/boar.tscn")
 
 @onready var trees_container:Node2D = get_node("TreesContainer")
 @onready var boars_container:Node2D = get_node("BoarsContainer")
@@ -40,10 +40,10 @@ func _ready():
 		var shift_min:float = -50
 		var shift_max:float = 50
 
-		for herd in range(1):
+		for herd in range(8):
 			pos_origin = Vector2(randf_range(range_min, range_max), randf_range(range_min, range_max))
 
-			for member in range(1):
+			for member in range(4):
 				boar = boar_scene.instantiate()
 				boars.append(boar)
 				boars_container.add_child(boar)

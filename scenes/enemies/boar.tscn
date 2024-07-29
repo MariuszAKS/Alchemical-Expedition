@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccj4ptjyqj0q3"]
+[gd_scene load_steps=8 format=3 uid="uid://ccj4ptjyqj0q3"]
 
-[ext_resource type="Texture2D" uid="uid://blbp1hhfxex5b" path="res://art/boar.png" id="1_82tqf"]
-[ext_resource type="Script" path="res://scripts/boar.gd" id="1_nw32a"]
+[ext_resource type="Script" path="res://scripts/enemies/boar.gd" id="1_aukkq"]
+[ext_resource type="Texture2D" uid="uid://blbp1hhfxex5b" path="res://art/boar.png" id="2_2p21b"]
+[ext_resource type="PackedScene" uid="uid://cdfclcm5gr3pe" path="res://scenes/hitbox.tscn" id="3_4htq7"]
+[ext_resource type="PackedScene" uid="uid://5ov2g6m50a6v" path="res://scenes/health_bar.tscn" id="4_t11ej"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yak71"]
 radius = 4.0
@@ -10,17 +12,21 @@ radius = 4.0
 radius = 200.0
 height = 500.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hxrw"]
+radius = 14.0
+height = 42.0
+
 [node name="Boar" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 256
-script = ExtResource("1_nw32a")
+script = ExtResource("1_aukkq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_yak71")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_82tqf")
+texture = ExtResource("2_2p21b")
 offset = Vector2(0, -28)
 
 [node name="Reaction" type="Sprite2D" parent="."]
@@ -33,6 +39,21 @@ collision_layer = 0
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lhh7g")
 
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("3_4htq7")]
+collision_layer = 16
+max_health = 10
+health_left = 10
+health_bar = NodePath("../HealthBar")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, -12)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2hxrw")
+
+[node name="HealthBar" parent="." instance=ExtResource("4_t11ej")]
+offset_top = -34.0
+offset_bottom = -30.0
+
 [node name="WanderTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
@@ -42,6 +63,7 @@ autostart = true
 one_shot = true
 
 [node name="MaxChargeTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [node name="ChargeCooldownTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -62,3 +84,5 @@ one_shot = true
 [connection signal="timeout" from="ChargeCooldownTimer" to="." method="_finish_cooldown"]
 [connection signal="timeout" from="MemoryTimer" to="." method="_forget_target"]
 [connection signal="timeout" from="ReactionSymbolTimer" to="." method="_hide_reaction_symbol"]
+
+[editable path="Hitbox"]

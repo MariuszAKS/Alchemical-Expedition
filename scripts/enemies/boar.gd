@@ -23,6 +23,12 @@ var reaction_dots:CompressedTexture2D = preload("res://art/icons/dots.png")
 var reaction_exclamation:CompressedTexture2D = preload("res://art/icons/exclamation_mark.png")
 var reaction_question:CompressedTexture2D = preload("res://art/icons/question_mark.png")
 
+@onready var hitbox:Hitbox = get_node("Hitbox")
+
+
+func _ready():
+	hitbox.health_depleted.connect(_death)
+
 
 func _process(delta):
 	if boar_state == State.WANDER:
@@ -35,12 +41,10 @@ func _process(delta):
 
 		if collision:
 			_hit_obstacle()
-	
-	print(charge_cooldown_timer.time_left)
 		
 
 func _change_state(new_state:State):
-	print("%s -> %s" % [State.find_key(boar_state), State.find_key(new_state)])
+	# print("%s -> %s" % [State.find_key(boar_state), State.find_key(new_state)])
 	_exit_state(boar_state)
 	_enter_state(new_state)
 
@@ -139,3 +143,8 @@ func _show_reaction_symbol(reaction:CompressedTexture2D):
 
 func _hide_reaction_symbol():
 	reaction_symbol.texture = null
+
+
+func _death():
+	# spawn items for pickup
+	queue_free()

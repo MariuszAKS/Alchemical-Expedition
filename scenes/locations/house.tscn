@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bl86qkwqqktj3"]
 
-[ext_resource type="Script" path="res://scripts/house.gd" id="1_4kxeh"]
 [ext_resource type="Texture2D" uid="uid://cjrmkcnbdvnl2" path="res://art/cauldron.png" id="1_n8bwc"]
+[ext_resource type="Script" path="res://scripts/locations/house.gd" id="1_wkser"]
 [ext_resource type="Texture2D" uid="uid://biq73m6mw6hj0" path="res://art/exit.png" id="2_gtvuh"]
 [ext_resource type="PackedScene" uid="uid://bqyaieqoe7uhh" path="res://scenes/player_start_position.tscn" id="4_s3c4c"]
 
@@ -12,7 +12,7 @@ size = Vector2(32, 32)
 radius = 37.0
 
 [node name="House" type="Node2D"]
-script = ExtResource("1_4kxeh")
+script = ExtResource("1_wkser")
 
 [node name="Exit" type="Area2D" parent="."]
 position = Vector2(320, 400)
