@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccj4ptjyqj0q3"]
+
+[ext_resource type="Texture2D" uid="uid://blbp1hhfxex5b" path="res://art/boar.png" id="1_82tqf"]
+[ext_resource type="Script" path="res://scripts/boar.gd" id="1_nw32a"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yak71"]
+radius = 4.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lhh7g"]
+radius = 200.0
+height = 500.0
+
+[node name="Boar" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("1_nw32a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yak71")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_82tqf")
+offset = Vector2(0, -28)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_lhh7g")
+
+[node name="WanderTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="PrepareChargeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="MaxChargeTimer" type="Timer" parent="."]
+
+[node name="ChargeCooldownTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="MemoryTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_spot_target"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_stop_seeing_target"]
+[connection signal="timeout" from="WanderTimer" to="." method="_change_wandering_direction"]
+[connection signal="timeout" from="PrepareChargeTimer" to="." method="_finish_preparing_charge"]
+[connection signal="timeout" from="MaxChargeTimer" to="." method="_finish_charge"]
+[connection signal="timeout" from="ChargeCooldownTimer" to="." method="_start_preparing_charge"]
+[connection signal="timeout" from="MemoryTimer" to="." method="_forget_target"]

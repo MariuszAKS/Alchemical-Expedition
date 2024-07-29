@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+class_name Player
+
 
 const MOVE_VELOCITY = 150.0
 const MOVE_VELOCITY_MAX = 200.0
@@ -35,7 +37,7 @@ func _physics_process(delta):
 func _movement(delta):
 	var new_direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 
-	if Input.is_action_just_pressed("move_dash"):
+	if can_move && Input.is_action_just_pressed("move_dash"):
 		velocity = direction * DASH_VELOCITY
 		can_move = false
 		dash_timer.start()

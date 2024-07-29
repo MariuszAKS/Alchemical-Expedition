@@ -14,6 +14,9 @@ position = Vector2(0, 0)
 [node name="TreesContainer" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="BoarsContainer" type="Node2D" parent="."]
+y_sort_enabled = true
+
 [node name="Floor" type="CanvasLayer" parent="."]
 layer = -1
 
