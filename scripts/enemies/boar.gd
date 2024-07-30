@@ -4,7 +4,7 @@ extends CharacterBody2D
 enum State {WANDER, PREPARE_CHARGE, CHARGE, FINISH_CHARGE, STUNNED}
 
 const WALK_VELOCITY = 50.0
-const CHARGE_VELOCITY = 400.0
+const CHARGE_VELOCITY = 300.0
 
 var boar_state:State = State.WANDER
 var target:Node2D = null
@@ -15,6 +15,8 @@ var direction:Vector2 = Vector2(0, 0)
 @onready var max_charge_timer:Timer = get_node("MaxChargeTimer")
 @onready var charge_cooldown_timer:Timer = get_node("ChargeCooldownTimer")
 @onready var memory_timer:Timer = get_node("MemoryTimer")
+
+@onready var animation:AnimatedSprite2D = get_node("Animation")
 
 @onready var reaction_symbol:Sprite2D = get_node("Reaction")
 @onready var reaction_symbol_timer:Timer = get_node("ReactionSymbolTimer")
@@ -41,6 +43,8 @@ func _process(delta):
 
 		if collision:
 			_hit_obstacle()
+	
+	animation.flip_h = direction.x < 0
 		
 
 func _change_state(new_state:State):
@@ -72,29 +76,29 @@ func _exit_state(current_state:State):
 func _enter_state(new_state:State):
 	if new_state == State.WANDER:
 		_change_wandering_direction()
-		# start animation for wandering
+		_change_animation("wander")
 	
 	elif new_state == State.PREPARE_CHARGE:
 		prepare_charge_timer.wait_time = 0.5 + randf() / 2.0
 		prepare_charge_timer.start()
-		# start animation for preparing charge (kopytkiem kop)
+		_change_animation("prepare_charge")
 	
 	elif new_state == State.CHARGE:
 		direction = (target.position - position).normalized()
 
 		max_charge_timer.wait_time = 1.0 + randf()
 		max_charge_timer.start()
-		# start animation for charging
+		_change_animation("charge")
 	
 	elif new_state == State.FINISH_CHARGE:
 		charge_cooldown_timer.wait_time = 0.5 + randf() / 2.0
 		charge_cooldown_timer.start()
-		# start animation for tired
+		_change_animation("tired")
 	
 	elif new_state == State.STUNNED:
 		charge_cooldown_timer.wait_time = 2.0 + randf()
 		charge_cooldown_timer.start()
-		# start animation for stunned
+		_change_animation("stunned")
 	
 	boar_state = new_state
 
@@ -135,6 +139,10 @@ func _finish_cooldown():
 
 func _hit_obstacle():
 	_change_state(State.STUNNED)
+
+
+func _change_animation(new_animation:String):
+	animation.play(new_animation)
 
 
 func _show_reaction_symbol(reaction:CompressedTexture2D):

@@ -15,6 +15,8 @@ var direction:Vector2 = Vector2(1, 0)
 var _can_move:bool = true
 var _can_attack:bool = true
 
+@onready var animation:AnimatedSprite2D = get_node("Animation")
+
 @onready var camera:Camera2D = get_node("Camera")
 @onready var dash_timer:Timer = get_node("DashTimer")
 
@@ -44,6 +46,8 @@ func _movement(delta):
 	else:
 		velocity.x = move_toward(velocity.x, 0, DECELERATION * delta)
 		velocity.y = move_toward(velocity.y, 0, DECELERATION * delta)
+	
+	animation.flip_h = direction.x < 0
 
 	move_and_slide()
 

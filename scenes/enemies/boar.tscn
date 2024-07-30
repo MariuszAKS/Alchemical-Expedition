@@ -1,12 +1,59 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccj4ptjyqj0q3"]
+[gd_scene load_steps=13 format=3 uid="uid://ccj4ptjyqj0q3"]
 
 [ext_resource type="Script" path="res://scripts/enemies/boar.gd" id="1_aukkq"]
 [ext_resource type="Texture2D" uid="uid://blbp1hhfxex5b" path="res://art/boar.png" id="2_2p21b"]
+[ext_resource type="Texture2D" uid="uid://c6d3mi8ic0eax" path="res://art/boar_charge.png" id="2_8fp3e"]
 [ext_resource type="PackedScene" uid="uid://cdfclcm5gr3pe" path="res://scenes/hitbox.tscn" id="3_4htq7"]
+[ext_resource type="Texture2D" uid="uid://bykaq2egt22q0" path="res://art/boar_prepare_charge.png" id="3_iqhfh"]
+[ext_resource type="Texture2D" uid="uid://brb6hgu7qwkm3" path="res://art/boar_stunned.png" id="4_e7x0h"]
 [ext_resource type="PackedScene" uid="uid://5ov2g6m50a6v" path="res://scenes/health_bar.tscn" id="4_t11ej"]
+[ext_resource type="Texture2D" uid="uid://di5wvdxflaka1" path="res://art/boar_tired.png" id="5_vglcx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yak71"]
 radius = 4.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hstdg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8fp3e")
+}],
+"loop": true,
+"name": &"charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_iqhfh")
+}],
+"loop": true,
+"name": &"prepare_charge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_e7x0h")
+}],
+"loop": true,
+"name": &"stunned",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_vglcx")
+}],
+"loop": true,
+"name": &"tired",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2p21b")
+}],
+"loop": true,
+"name": &"wander",
+"speed": 5.0
+}]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lhh7g"]
 radius = 200.0
@@ -25,14 +72,17 @@ script = ExtResource("1_aukkq")
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_yak71")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_2p21b")
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hstdg")
+animation = &"wander"
+autoplay = "wander"
 offset = Vector2(0, -28)
 
 [node name="Reaction" type="Sprite2D" parent="."]
 offset = Vector2(16, -36)
 
 [node name="DetectionArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
@@ -40,6 +90,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lhh7g")
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("3_4htq7")]
+visible = false
 collision_layer = 16
 max_health = 10
 health_left = 10

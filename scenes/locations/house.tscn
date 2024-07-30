@@ -39,3 +39,4 @@ texture = ExtResource("1_n8bwc")
 [node name="PlayerStartPosition" parent="." instance=ExtResource("4_s3c4c")]
 
 [connection signal="body_entered" from="Exit" to="." method="_on_exit_body_entered"]
+[connection signal="body_entered" from="Cauldron" to="." method="_on_cauldron_body_entered"]

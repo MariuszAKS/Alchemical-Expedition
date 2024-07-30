@@ -4,7 +4,7 @@ extends Area2D
 @export var damage:int = 2
 
 @onready var collider:CollisionShape2D = get_node("Collider")
-@onready var sprite:Sprite2D = get_node("Sprite2D")
+@onready var sprite:Sprite2D = get_node("Animation")
 @onready var attack_timer:Timer = get_node("AttackTimer")
 @onready var cooldown_timer:Timer = get_node("CooldownTimer")
 

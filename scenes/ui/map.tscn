@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://w6uuuay7e7ts"]
 
-[ext_resource type="Script" path="res://scripts/map.gd" id="1_3ukb7"]
-[ext_resource type="Texture2D" uid="uid://d02b6sw3mo7gl" path="res://art/map.png" id="1_vf4fo"]
+[ext_resource type="Script" path="res://scripts/ui/map.gd" id="1_3ukb7"]
+[ext_resource type="Texture2D" uid="uid://d02b6sw3mo7gl" path="res://art/ui/map.png" id="1_vf4fo"]
 
 [node name="Map" type="Control"]
 custom_minimum_size = Vector2(640, 640)

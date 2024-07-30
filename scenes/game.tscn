@@ -1,13 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsj8mv0puoiou"]
+[gd_scene load_steps=5 format=3 uid="uid://bsj8mv0puoiou"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_cinr1"]
+[ext_resource type="Script" path="res://scripts/ui/ui_control.gd" id="2_b3lub"]
+[ext_resource type="PackedScene" uid="uid://g4ywx55qq8cl" path="res://scenes/ui/alchemy.tscn" id="3_n4c1r"]
+[ext_resource type="PackedScene" uid="uid://w6uuuay7e7ts" path="res://scenes/ui/map.tscn" id="4_xi8tm"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_cinr1")
 
-[node name="UI Control" type="Control" parent="."]
-z_index = 10
+[node name="LocationContainer" type="Node2D" parent="."]
+
+[node name="UIControl" type="Control" parent="."]
 custom_minimum_size = Vector2(640, 640)
 layout_mode = 3
 anchors_preset = 15
@@ -17,3 +21,12 @@ offset_right = 640.0
 offset_bottom = 640.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_b3lub")
+
+[node name="Alchemy" parent="UIControl" instance=ExtResource("3_n4c1r")]
+visible = false
+layout_mode = 1
+
+[node name="Map" parent="UIControl" instance=ExtResource("4_xi8tm")]
+visible = false
+layout_mode = 1

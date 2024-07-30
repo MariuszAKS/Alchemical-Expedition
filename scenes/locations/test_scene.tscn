@@ -5,21 +5,22 @@
 [ext_resource type="PackedScene" uid="uid://b0ddltblpo7er" path="res://scenes/tree.tscn" id="3_bnjf3"]
 
 [node name="TestScene" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_ktf2e")]
-position = Vector2(315, 524)
+position = Vector2(362, 471)
 
 [node name="Boar" parent="." instance=ExtResource("2_8i8fu")]
-position = Vector2(510, 363)
+position = Vector2(508, 362)
 
 [node name="Tree" parent="." instance=ExtResource("3_bnjf3")]
-position = Vector2(510, 391)
+position = Vector2(507, 347)
 
 [node name="Tree2" parent="." instance=ExtResource("3_bnjf3")]
 position = Vector2(471, 368)
 
 [node name="Tree3" parent="." instance=ExtResource("3_bnjf3")]
-position = Vector2(549, 366)
+position = Vector2(544, 365)
 
 [node name="Tree4" parent="." instance=ExtResource("3_bnjf3")]
-position = Vector2(512, 339)
+position = Vector2(570, 390)
