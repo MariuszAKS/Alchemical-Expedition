@@ -159,6 +159,14 @@ theme_override_constants/margin_bottom = 16
 [node name="Texture" type="TextureRect" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Bottom/Margin"]
 layout_mode = 2
 
+[node name="Exit" type="Button" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle"]
+layout_mode = 0
+offset_left = 331.0
+offset_top = 2.0
+offset_right = 372.0
+offset_bottom = 33.0
+text = "EXIT"
+
 [node name="BottomRow" type="HBoxContainer" parent="MarginOuter/MarginInner/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -166,3 +174,5 @@ size_flags_vertical = 3
 [node name="Description" type="Panel" parent="MarginOuter/MarginInner/VBoxContainer/BottomRow"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[connection signal="pressed" from="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Exit" to="." method="_on_exit_pressed"]

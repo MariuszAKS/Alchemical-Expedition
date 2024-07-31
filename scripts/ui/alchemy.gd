@@ -1,6 +1,8 @@
 extends Control
 
 
+signal exit_button_pressed
+
 var path_base:String = "MarginOuter/MarginInner/VBoxContainer/TopRow"
 var slots_count:int = 4
 var slot_pressed = null
@@ -49,3 +51,7 @@ func _untoggle_slots(exception_id:int):
 		if i == exception_id:
 			continue
 		alchemy_slots[i].set_pressed(false)
+
+
+func _on_exit_pressed():
+	emit_signal(exit_button_pressed.get_name())

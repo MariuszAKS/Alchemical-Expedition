@@ -11,22 +11,20 @@ script = ExtResource("1_cinr1")
 
 [node name="LocationContainer" type="Node2D" parent="."]
 
-[node name="UIControl" type="Control" parent="."]
-custom_minimum_size = Vector2(640, 640)
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 640.0
-offset_bottom = 640.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="UIControl" type="CanvasLayer" parent="."]
 script = ExtResource("2_b3lub")
 
 [node name="Alchemy" parent="UIControl" instance=ExtResource("3_n4c1r")]
 visible = false
-layout_mode = 1
 
 [node name="Map" parent="UIControl" instance=ExtResource("4_xi8tm")]
 visible = false
-layout_mode = 1
+
+[node name="Button" type="Button" parent="UIControl"]
+offset_left = 253.0
+offset_top = 581.0
+offset_right = 372.0
+offset_bottom = 612.0
+text = "Go back home"
+
+[connection signal="pressed" from="UIControl/Button" to="." method="_go_back_home"]
