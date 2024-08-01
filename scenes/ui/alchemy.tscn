@@ -1,0 +1,178 @@
+[gd_scene load_steps=5 format=3 uid="uid://g4ywx55qq8cl"]
+
+[ext_resource type="Script" path="res://scripts/ui/alchemy.gd" id="1_dl2ru"]
+[ext_resource type="Texture2D" uid="uid://b3nhxop1x5run" path="res://art/purple_crystal.png" id="2_8pn0n"]
+[ext_resource type="Texture2D" uid="uid://73s84d6l64rn" path="res://art/ui/alchemy_circle.png" id="3_a0ka8"]
+[ext_resource type="Texture2D" uid="uid://brr428lxvk3qw" path="res://art/ui/circle_chosen.png" id="4_wusx3"]
+
+[node name="Alchemy" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dl2ru")
+item_texture = ExtResource("2_8pn0n")
+
+[node name="MarginOuter" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Background" type="ColorRect" parent="MarginOuter"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.498039)
+
+[node name="MarginInner" type="MarginContainer" parent="MarginOuter"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginOuter/MarginInner"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TopRow" type="HBoxContainer" parent="MarginOuter/MarginInner/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 16
+
+[node name="ItemList" type="ItemList" parent="MarginOuter/MarginInner/VBoxContainer/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AlchemyCircle" type="TextureRect" parent="MarginOuter/MarginInner/VBoxContainer/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource("3_a0ka8")
+stretch_mode = 6
+
+[node name="Top" type="TextureButton" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 21.0
+offset_right = 230.0
+offset_bottom = 110.0
+toggle_mode = true
+texture_pressed = ExtResource("4_wusx3")
+stretch_mode = 0
+
+[node name="Margin" type="MarginContainer" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Top"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Texture" type="TextureRect" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Top/Margin"]
+layout_mode = 2
+
+[node name="Left" type="TextureButton" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 141.0
+offset_right = 110.0
+offset_bottom = 230.0
+toggle_mode = true
+texture_pressed = ExtResource("4_wusx3")
+stretch_mode = 0
+
+[node name="Margin" type="MarginContainer" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Texture" type="TextureRect" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Left/Margin"]
+layout_mode = 2
+
+[node name="Right" type="TextureButton" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle"]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 141.0
+offset_right = 350.0
+offset_bottom = 230.0
+toggle_mode = true
+texture_pressed = ExtResource("4_wusx3")
+stretch_mode = 0
+
+[node name="Margin" type="MarginContainer" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Texture" type="TextureRect" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Right/Margin"]
+layout_mode = 2
+
+[node name="Bottom" type="TextureButton" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 260.0
+offset_right = 230.0
+offset_bottom = 349.0
+toggle_mode = true
+texture_pressed = ExtResource("4_wusx3")
+stretch_mode = 0
+
+[node name="Margin" type="MarginContainer" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Bottom"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Texture" type="TextureRect" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Bottom/Margin"]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle"]
+layout_mode = 0
+offset_left = 331.0
+offset_top = 2.0
+offset_right = 372.0
+offset_bottom = 33.0
+text = "EXIT"
+
+[node name="BottomRow" type="HBoxContainer" parent="MarginOuter/MarginInner/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Description" type="Panel" parent="MarginOuter/MarginInner/VBoxContainer/BottomRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="MarginOuter/MarginInner/VBoxContainer/TopRow/AlchemyCircle/Exit" to="." method="_on_exit_pressed"]

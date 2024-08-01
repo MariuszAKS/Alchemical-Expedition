@@ -1,0 +1,93 @@
+[gd_scene load_steps=11 format=3 uid="uid://b3hl84xse03ke"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_dqsja"]
+[ext_resource type="Texture2D" uid="uid://b6fylk5bvs5bb" path="res://art/shadow.png" id="1_mcoii"]
+[ext_resource type="Script" path="res://scripts/player/attack.gd" id="3_frabq"]
+[ext_resource type="PackedScene" uid="uid://cdfclcm5gr3pe" path="res://scenes/hitbox.tscn" id="3_y87cp"]
+[ext_resource type="Texture2D" uid="uid://80ys6pgg5xki" path="res://art/player_attack.png" id="4_xp1ai"]
+[ext_resource type="PackedScene" uid="uid://5ov2g6m50a6v" path="res://scenes/health_bar.tscn" id="6_5ugqh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f1vbk"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ce2qf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mcoii")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eqmup"]
+radius = 30.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o351g"]
+radius = 5.0
+height = 26.0
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
+collision_mask = 256
+script = ExtResource("1_dqsja")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_f1vbk")
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(0, -14)
+enabled = false
+position_smoothing_enabled = true
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ce2qf")
+autoplay = "default"
+offset = Vector2(0, -14)
+
+[node name="Attack" type="Area2D" parent="."]
+position = Vector2(0, -12)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("3_frabq")
+metadata/_edit_group_ = true
+
+[node name="Collider" type="CollisionShape2D" parent="Attack"]
+shape = SubResource("CircleShape2D_eqmup")
+disabled = true
+
+[node name="Animation" type="Sprite2D" parent="Attack"]
+texture = ExtResource("4_xp1ai")
+
+[node name="AttackTimer" type="Timer" parent="Attack"]
+wait_time = 0.2
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="Attack"]
+wait_time = 0.2
+one_shot = true
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_bar") instance=ExtResource("3_y87cp")]
+position = Vector2(0, -12)
+max_health = 20
+health_left = 20
+health_bar = NodePath("../HealthBar")
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CapsuleShape2D_o351g")
+
+[node name="HealthBar" parent="." instance=ExtResource("6_5ugqh")]
+offset_top = -49.0
+offset_bottom = -45.0
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="area_entered" from="Attack" to="Attack" method="_hit"]
+[connection signal="timeout" from="Attack/AttackTimer" to="Attack" method="_finish_attack"]
+
+[editable path="Hitbox"]
